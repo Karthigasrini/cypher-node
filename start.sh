@@ -32,12 +32,12 @@ REBUILD_BATCH_SIZE=80000
 
 # download and upgrade
 DOWNLOAD=false
-RELEASE_URL='https://github.com/tronprotocol/java-tron/releases'
+RELEASE_URL='https://github.com/Karthigasrini/cypher-node/releases'
 QUICK_START=false
 CLONE_BUILD=false
 
 getLatestReleaseVersion() {
-  full_node_version=`git ls-remote --tags git@github.com:tronprotocol/java-tron.git |grep GreatVoyage- | awk -F '/' 'END{print $3}'`
+  full_node_version=`git ls-remote --tags git@github.com:Karthigasrini/cypher-node.git |grep GreatVoyage- | awk -F '/' 'END{print $3}'`
   if [[ -n $full_node_version ]]; then
    echo $full_node_version
   else
@@ -104,7 +104,7 @@ quickStart() {
     mkdirFullNode
     echo "info: check latest version: $full_node_version"
     echo 'info: download config'
-    download https://raw.githubusercontent.com/tronprotocol/tron-deployment/$GITHUB_BRANCH/$FULL_NODE_CONFIG $FULL_NODE_CONFIG
+    download https://raw.githubusercontent.com/Karthigasrini/cypher-node/$GITHUB_BRANCH/$FULL_NODE_CONFIG $FULL_NODE_CONFIG
     mv $FULL_NODE_CONFIG 'config.conf'
 
     echo "info: download $full_node_version"
@@ -118,9 +118,9 @@ quickStart() {
 
 cloneCode() {
   if type git >/dev/null 2>&1; then
-    git_clone=$(git clone -b $GITHUB_BRANCH git@github.com:tronprotocol/java-tron.git)
+    git_clone=$(git clone -b $GITHUB_BRANCH git@github.com:Karthigasrini/cypher-node.git)
     if [[ git_clone == 0 ]]; then
-      echo 'info: git clone java-tron success'
+      echo 'info: git clone java-cypher success'
     fi
   else
     echo 'info: no exists git, make sure the system can use the "git" command'
@@ -129,17 +129,17 @@ cloneCode() {
 
 cloneBuild() {
   local currentPwd=$PWD
-  echo 'info: clone java-tron'
+  echo 'info: clone java-cypher'
   cloneCode
 
-  echo 'info: build java-tron'
-  cd java-tron
+  echo 'info: build java-cypher'
+  cd cypher-node
   sh gradlew clean build -x test
   if [[ $? == 0 ]];then
     cd $currentPwd
     mkdirFullNode
-    cp '../java-tron/build/libs/FullNode.jar' $PWD
-    cp '../java-tron/framework/src/main/resources/config.conf' $PWD
+    cp '../cypher-node/build/libs/FullNode.jar' $PWD
+    cp '../cypher-node/framework/src/main/resources/config.conf' $PWD
   else
     exit
   fi
@@ -161,7 +161,7 @@ stopService() {
       kill -15 $pid
       sleep 1
     else
-      echo "info: java-tron stop"
+      echo "info: java-cypher stop"
       return
     fi
     count=$(($count + 1))
@@ -257,7 +257,7 @@ startService() {
     -XX:NewRatio=2 -jar \
     $JAR_NAME $FULL_START_OPT >>start.log 2>&1 &
   checkPid
-  echo "info: start java-tron with pid $pid on $HOSTNAME"
+  echo "info: start java-cypher with pid $pid on $HOSTNAME"
   echo "info: if you need to stop the service, execute: sh start.sh --stop"
 }
 
@@ -312,7 +312,7 @@ checkSign() {
     echo 'info: sha256 signatures pass'
   else
     echo 'info: sha256 signature exception!!!'
-    echo 'info: please compile from the code or download the latest version from https://github.com/tronprotocol/java-tron'
+    echo 'info: please compile from the code or download the latest version from https://github.com/karthigasrini/cypher-node'
   fi
 }
 

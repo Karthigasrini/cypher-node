@@ -14,7 +14,7 @@
 * `master` branch: more stable than develop.
 In the shell command, type:
 ```bash
-git clone https://github.com/tronprotocol/java-cypher.git
+git clone https://github.com/Karthigasrini/cypher-node.git
 git checkout -t origin/master
 ```
 
@@ -23,6 +23,6 @@ git checkout -t origin/master
 **Building using the console:**
 
 ```bash
-cd java-cypher
+cd cypher-node
 ./gradlew build -x test
 ```
